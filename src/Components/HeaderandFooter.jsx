@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CVModal from '../Components/CVModal';
 import { Menu, X } from 'lucide-react';
 import background2 from '../assets/background2.png';
@@ -7,6 +7,7 @@ import background2 from '../assets/background2.png';
 export default function HeaderandFooter() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -18,8 +19,47 @@ export default function HeaderandFooter() {
   };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (!isAnimating) {
+      if (!isMobileMenuOpen) {
+        // Opening animation
+        setIsMobileMenuOpen(true);
+        setIsAnimating(true);
+        setTimeout(() => setIsAnimating(false), 300);
+      } else {
+        // Closing animation
+        setIsAnimating(true);
+        setTimeout(() => {
+          setIsMobileMenuOpen(false);
+          setIsAnimating(false);
+        }, 300);
+      }
+    }
   };
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && !event.target.closest('.mobile-menu-container') && !event.target.closest('.menu-button')) {
+        toggleMobileMenu();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -55,19 +95,42 @@ export default function HeaderandFooter() {
           {/* Mobile Menu Button */}
           <button 
             onClick={toggleMobileMenu}
-            className="md:hidden text-white p-2 focus:outline-none"
+            className="md:hidden text-white p-2 focus:outline-none menu-button transition-transform duration-300 hover:scale-110"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6 transition-transform duration-300 rotate-0" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-6 h-6 transition-transform duration-300 rotate-0" />
             )}
           </button>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-40 pt-16">
+        {/* Mobile Menu Overlay */}
+        <div className={`md:hidden mobile-menu-container fixed inset-0 z-40 transition-all duration-300 ease-out ${
+          isMobileMenuOpen 
+            ? 'opacity-100 pointer-events-auto' 
+            : 'opacity-0 pointer-events-none'
+        }`}>
+          {/* Background Overlay */}
+          <div 
+            className={`absolute inset-0 transition-all duration-500 ${
+              isMobileMenuOpen 
+                ? 'backdrop-blur-md bg-black/40' 
+                : 'backdrop-blur-0 bg-black/0'
+            }`}
+            onClick={toggleMobileMenu}
+          />
+          
+          {/* Menu Content */}
+          <div 
+            className={`absolute inset-0 pt-16 transition-all duration-500 ease-out ${
+              isMobileMenuOpen 
+                ? 'translate-y-0 opacity-100' 
+                : '-translate-y-4 opacity-0'
+            }`}
+          >
+            {/* Background Image */}
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ 
@@ -78,36 +141,69 @@ export default function HeaderandFooter() {
               }}
             />
             
-            <div className="absolute inset-0 bg-black/10" />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/30" />
             
+            {/* Menu Items Container */}
             <div className="relative z-10 flex flex-col items-center justify-center h-full space-y-6 sm:space-y-8">
-              <Link 
-                to="/" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4"
+              {/* Home Link */}
+              <div 
+                className={`transform transition-all duration-500 ease-out ${
+                  isMobileMenuOpen 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: isMobileMenuOpen ? '100ms' : '0ms' }}
               >
-                <span className="relative z-10">Home<span className="text-orange-400">.</span></span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link 
-                to="/works" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4"
+                <Link 
+                  to="/" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4 block"
+                >
+                  <span className="relative z-10 hover:text-orange-300 transition-colors duration-300">Home<span className="text-orange-400">.</span></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              </div>
+              
+              {/* Works Link */}
+              <div 
+                className={`transform transition-all duration-500 ease-out ${
+                  isMobileMenuOpen 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: isMobileMenuOpen ? '200ms' : '0ms' }}
               >
-                <span className="relative z-10">Works<span className="text-orange-400">.</span></span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <button 
-                onClick={openModal}
-                className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4"
+                <Link 
+                  to="/works" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4 block"
+                >
+                  <span className="relative z-10 hover:text-orange-300 transition-colors duration-300">Works<span className="text-orange-400">.</span></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              </div>
+              
+              {/* About Me Button */}
+              <div 
+                className={`transform transition-all duration-500 ease-out ${
+                  isMobileMenuOpen 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: isMobileMenuOpen ? '300ms' : '0ms' }}
               >
-                <span className="relative z-10">About me<span className="text-orange-400">.</span></span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
-              </button>
+                <button 
+                  onClick={openModal}
+                  className="text-white text-2xl sm:text-3xl font-bold font-akshar tracking-tight relative group cursor-pointer py-2 px-4"
+                >
+                  <span className="relative z-10 hover:text-orange-300 transition-colors duration-300">About me<span className="text-orange-400">.</span></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
+                </button>
+              </div>
             </div>
           </div>
-        )}
-
+        </div>
       </div>
 
       <CVModal isOpen={isModalOpen} onClose={closeModal} />

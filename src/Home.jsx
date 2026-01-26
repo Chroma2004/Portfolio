@@ -7,6 +7,7 @@ function Home() {
       className="min-h-screen w-full bg-cover bg-center bg-no-repeat relative select-none"
       style={{ 
         backgroundImage: `url(${bg})`,
+        // Responsive background sizing
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'

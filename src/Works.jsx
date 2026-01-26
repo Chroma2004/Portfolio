@@ -191,17 +191,6 @@ const projects = [
   },
   {
     id: 8,
-    title: "Product Design Concepts",
-    category: "product-design",
-    description: "Collection of product design concepts and mockups showcasing various styles",
-    longDescription: `A collection of product design concepts and mockups that demonstrate my skills in creating visually appealing and functional product designs. These concepts explore various design styles, from minimalist to elaborate, showcasing versatility in product visualization.`,
-    image: background2,
-    tags: ["Product Design", "Concept Art", "Mockup Design", "Packaging Design", "3D Visualization"],
-    programs: ["Procreate", "Adobe Photoshop", "Adobe Illustrator"],
-    type: "Product Design"
-  },
-  {
-    id: 9,
     title: "Character Illustration",
     category: "digital-art",
     description: "Expressive character illustrations with vibrant color palettes",
@@ -219,7 +208,6 @@ const categoryIcons = {
   'all': FilterIcon,
   'ui/ux': UIIcon || LayoutIcon,
   'posters': ImageIcon,
-  'product-design': BoxIcon,
   'digital-art': GraphicIcon || ImageIcon
 };
 
@@ -227,7 +215,6 @@ const categoryIcons = {
 const typeIcons = {
   'Poster': ImageIcon,
   'Pixel Art': PixelArtIcon,
-  'Product Design': BoxIcon,
   'Illustration': ImageIcon,
   'Web Application': LayoutIcon,
   'Website Design': LayoutIcon,
@@ -265,7 +252,6 @@ const programIcons = {
 const typeColors = {
   'Poster': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
   'Pixel Art': 'bg-pink-500/20 text-pink-300 border-pink-500/30',
-  'Product Design': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   'Illustration': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
   'Website Design': 'bg-green-500/20 text-green-300 border-green-500/30',
   'Web Application': 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
@@ -355,7 +341,6 @@ export default function Works() {
     { id: 'all', label: 'All Projects', count: projects.length },
     { id: 'ui/ux', label: 'UI/UX Design', count: projects.filter(p => p.category === 'ui/ux').length },
     { id: 'posters', label: 'Posters', count: projects.filter(p => p.category === 'posters').length },
-    { id: 'product-design', label: 'Product Design', count: projects.filter(p => p.category === 'product-design').length },
     { id: 'digital-art', label: 'Digital Art', count: projects.filter(p => p.category === 'digital-art').length }
   ];
 
@@ -478,7 +463,6 @@ export default function Works() {
                       <span className="hidden sm:inline">
                         {project.category === 'ui/ux' ? 'UI/UX' : 
                          project.category === 'digital-art' ? 'Digital Art' :
-                         project.category === 'product-design' ? 'Product Design' :
                          project.category}
                       </span>
                     </div>
