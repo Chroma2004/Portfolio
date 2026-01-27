@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import CloseIcon from '../assets/close.svg';
-import AboutMeIcon from '../assets/user.svg';
+import AboutMeIcon from '../assets/User.svg';
 import DesignIcon from '../assets/design.svg';
 import CodeIcon from '../assets/code.svg';
 import ArtIcon from '../assets/palette.svg';
