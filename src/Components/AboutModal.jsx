@@ -14,7 +14,7 @@ import ProfilePhoto from '../assets/Profile.png';
 import FigmaIcon from '../assets/Figma.svg';
 import PhotoshopIcon from '../assets/AdobePhotoshop.svg';
 import IllustratorIcon from '../assets/AdobeIllustrator.svg';
-import CapcutIcon from '../assets/video.svg';
+import CapcutIcon from '../assets/Video.svg';
 import CanvaIcon from '../assets/Canva.svg';
 import ProcreateIcon from '../assets/Procreate.png';
 import AsepriteIcon from '../assets/Aseprite.svg';
