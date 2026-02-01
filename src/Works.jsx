@@ -18,9 +18,9 @@ import CAD1 from './assets/CAD1.svg';
 import CAD2 from './assets/CAD2.svg';
 import CAD3 from './assets/CAD3.svg';
 
-import POS1 from './assets/POS3.png';
+import POS1 from './assets/POS1.png';
 import POS2 from './assets/POS2.png';
-import POS3 from './assets/POS1.png';
+import POS3 from './assets/POS3.png';
 import POS4 from './assets/POS4.png';
 import POS5 from './assets/POS5.png';
 import POS6 from './assets/POS6.jpg';
@@ -37,6 +37,9 @@ import GA1 from './assets/GA1.PNG';
 import GA2 from './assets/GA2.PNG';
 import GA3 from './assets/GA3.PNG';
 import GA4 from './assets/GA4.PNG';
+
+import PB1 from './assets/PB1.png';
+import PB2 from './assets/PB2.png';
 
 import TrainPA1 from './assets/TrainPA1.PNG';
 
@@ -159,6 +162,18 @@ const projects = [
   },
   {
     id: 6,
+    title: "CvSU BITS PubMats",
+    category: "posters",
+    description: "Promotional materials created for Cavite State University - Imus Campus BITS organization",
+    longDescription: `A collection of promotional materials (pubmats) created during my time as a creative in BITS (Builders of Innovative Technologist Society) at Cavite State University - Imus Campus.`,
+    images: [PB1, PB2],
+    image: PB1,
+    tags: ["PubMats", "Promotional Materials", "Canva", "Adobe Photoshop", "Graphic Design", "University Events"],
+    programs: ["Canva", "Adobe Photoshop"],
+    type: "PubMats"
+  },
+  {
+    id: 7,
     title: "Creative Poster Collection",
     category: "posters",
     description: "A series of creative posters showcasing Photoshop and Illustrator skills",
@@ -179,7 +194,7 @@ const projects = [
     type: "Poster"
   },
   {
-    id: 7,
+    id: 8,
     title: "3Minds Portfolio Website",
     category: "ui",
     description: "Academic group portfolio website project as Lead UI Designer",
@@ -202,7 +217,7 @@ const projects = [
     type: "Website Design"
   },
   {
-    id: 8,
+    id: 9,
     title: "Character Illustration",
     category: "digital-art",
     description: "Expressive character illustrations with vibrant color palettes",
@@ -224,6 +239,7 @@ const categoryIcons = {
 
 const typeIcons = {
   'Poster': ImageIcon,
+  'PubMats': ImageIcon,
   'Pixel Art': PixelArtIcon,
   'Illustration': ImageIcon,
   'Web Application': LayoutIcon,
@@ -253,6 +269,7 @@ const programIcons = {
 
 const typeColors = {
   'Poster': 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+  'PubMats': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   'Pixel Art': 'bg-pink-500/20 text-pink-300 border-pink-500/30',
   'Illustration': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
   'Website Design': 'bg-green-500/20 text-green-300 border-green-500/30',
@@ -335,7 +352,7 @@ export default function Works() {
   const categories = [
     { id: 'all', label: 'All Projects', count: projects.length },
     { id: 'ui', label: 'UI Design', count: projects.filter(p => p.category === 'ui').length },
-    { id: 'posters', label: 'Posters', count: projects.filter(p => p.category === 'posters').length },
+    { id: 'posters', label: 'Posters & PubMats', count: projects.filter(p => p.category === 'posters').length },
     { id: 'digital-art', label: 'Digital Art', count: projects.filter(p => p.category === 'digital-art').length }
   ];
 
@@ -454,6 +471,7 @@ export default function Works() {
                       <span className="hidden sm:inline">
                         {project.category === 'ui' ? 'UI Design' : 
                          project.category === 'digital-art' ? 'Digital Art' :
+                         project.category === 'posters' ? 'Posters & PubMats' :
                          project.category}
                       </span>
                     </div>
