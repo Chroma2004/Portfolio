@@ -162,7 +162,7 @@ const projects = [
   },
   {
     id: 6,
-    title: "CvSU BITS PubMats",
+    title: "PubMats",
     category: "posters",
     description: "Promotional materials created for Cavite State University - Imus Campus BITS organization",
     longDescription: `A collection of promotional materials (pubmats) created during my time as a creative in BITS (Builders of Innovative Technologist Society) at Cavite State University - Imus Campus.`,
